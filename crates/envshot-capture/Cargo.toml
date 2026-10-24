@@ -1,0 +1,44 @@
+[package]
+name = "envshot-capture"
+version = "1.0.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+description = "Collector contracts and capture orchestration for EnvShot (publish disabled pending release)"
+
+[dependencies]
+envshot-model = { path = "../envshot-model", version = "1.0.0" }
+sys-locale = "0.3"
+sysinfo = "0.39.6"
+iana-time-zone = "0.1"
+thiserror = "2.0.21"
+
+[target.'cfg(any(target_arch = "x86", target_arch = "x86_64"))'.dependencies]
+raw-cpuid = "11.6"
+
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.62", features = [
+    "Win32_Foundation",
+    "Win32_System_Registry",
+    "Win32_System_Threading",
+    "Win32_System_SystemInformation",
+    "Win32_Graphics_Dxgi",
+] }
+
+[dev-dependencies]
+serde_json = "1.0.151"
+proptest = "1.11.0"
+
+# The Windows registry/FFI adapters need a narrow unsafe block inside the
+# generated Win32 binding wrappers. unsafe_code is allowed crate-wide but
+# only used in registry_reader.rs; clippy keeps the workspace strictness.
+[lints.rust]
+unsafe_code = "allow"
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+missing_safety_doc = "allow"

@@ -1,0 +1,29 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/envshot",
+    "crates/envshot-model",
+    "crates/envshot-core",
+    "crates/envshot-capture",
+    "crates/envshot-ffi",
+    "crates/envshot-cli",
+]
+
+# Publishing is a manual release step; never publish from feature branches.
+
+[workspace.package]
+edition = "2024"
+license = "MIT"
+# MSRV: the highest MSRV among our runtime dependencies (sysinfo 0.39 needs 1.95).
+rust-version = "1.95"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+missing_safety_doc = "allow"
+

@@ -1,0 +1,1 @@
+{"schema":{"name":"envshot.snapshot","major":0,"minor":1},"producer":{"name":"envshot","version":"1.0.0"},"capture":{"profile":"standard","privacy":"standard"},"sections":{"locale":{"status":"unavailable","data":null,"provenance":[],"issues":[]},"virtualization":{"status":"unsupported","data":null,"provenance":[],"issues":[{"code":"not_implemented","detail":null}]}}}

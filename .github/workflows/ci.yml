@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+  # Fail fast on warnings so `-D warnings` never surprises a contributor.
+  RUSTFLAGS: "-D warnings"
+
+jobs:
+  test:
+    name: fmt + clippy + test (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Installs the exact toolchain pinned in rust-toolchain.toml if missing.
+      - name: Install pinned toolchain
+        run: rustup toolchain install
+
+      - name: Print toolchain versions
+        run: |
+          cargo --version
+          rustc --version
+
+      - name: Formatting
+        run: cargo fmt --check
+
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+
+      - name: Tests
+        run: cargo test --workspace --all-features
+
+      - name: Build release binary
+        run: cargo build --workspace --release
+
+  msrv:
+    name: msrv (1.95.0)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup toolchain install 1.95.0 --profile minimal
+      - run: cargo +1.95.0 check --workspace --all-features

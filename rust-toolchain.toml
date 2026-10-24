@@ -1,0 +1,6 @@
+# Pinned stable toolchain validated for this workspace.
+# Package MSRV is expressed via `rust-version` in package manifests.
+[toolchain]
+channel = "1.97.1"
+profile = "default"
+components = ["rustfmt", "clippy"]

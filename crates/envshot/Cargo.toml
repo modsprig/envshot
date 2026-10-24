@@ -1,0 +1,19 @@
+[package]
+name = "envshot"
+version = "1.0.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+description = "Embeddable facade: capture, normalize, and privacy-project execution-environment snapshots (publish disabled pending release)"
+
+[dependencies]
+envshot-capture = { path = "../envshot-capture", version = "1.0.0" }
+envshot-core = { path = "../envshot-core", version = "1.0.0" }
+envshot-model = { path = "../envshot-model", version = "1.0.0" }
+
+[dev-dependencies]
+serde_json = "1.0.151"
+
+[lints]
+workspace = true

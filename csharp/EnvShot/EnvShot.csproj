@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <!-- Build the Rust cdylib and copy it next to the managed output so
+       NativeLibrary.Resolve resolves the P/Invoke. -->
+  <Target Name="BuildRustNative" BeforeTargets="BeforeBuild">
+    <Exec Command="cargo build --release -p envshot-ffi" WorkingDirectory="$(MSBuildThisFileDirectory)../.." />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)../../target/release/envshot_ffi.dll" DestinationFiles="$(OutputPath)envshot_ffi.dll" Condition="'$(OS)' == 'Windows_NT'" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)../../target/release/libenvshot_ffi.so" DestinationFiles="$(OutputPath)libenvshot_ffi.so" Condition="'$(OS)' != 'Windows_NT' And Exists('$(MSBuildThisFileDirectory)../../target/release/libenvshot_ffi.so')" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)../../target/release/libenvshot_ffi.dylib" DestinationFiles="$(OutputPath)libenvshot_ffi.dylib" Condition="'$(OS)' != 'Windows_NT' And Exists('$(MSBuildThisFileDirectory)../../target/release/libenvshot_ffi.dylib')" />
+  </Target>
+</Project>

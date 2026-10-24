@@ -1,0 +1,44 @@
+# cargo-deny configuration. Checked in CI and per-change gates.
+
+[graph]
+all-features = true
+
+[licenses]
+version = 2
+# Dual-licensing project (MIT OR Apache-2.0); allow the permissive set our
+# dependencies actually use.
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "Apache-2.0 WITH LLVM-exception",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "Unicode-3.0",
+    "Zlib",
+    "CC0-1.0",
+]
+confidence-threshold = 0.93
+
+[bans]
+multiple-versions = "warn"
+wildcards = "deny"
+# Deny obvious networking crates so capture can never grow accidental network
+# capability without a deliberate, reviewable change.
+deny = [
+    { name = "reqwest" },
+    { name = "hyper" },
+    { name = "ureq" },
+    { name = "curl" },
+    { name = "attohttpc" },
+    { name = "surf" },
+]
+
+[advisories]
+version = 2
+yanked = "warn"
+
+[sources]
+unknown-registry = "warn"
+unknown-git = "warn"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]

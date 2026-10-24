@@ -1,0 +1,15 @@
+# Normalize line endings across platforms; Rust tooling is LF-friendly on Windows.
+* text=auto eol=lf
+
+# Explicit text types (defense against future patterns)
+*.rs   text eol=lf
+*.toml text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.md   text eol=lf
+*.json text eol=lf
+*.txt  text eol=lf
+
+# Binaries
+*.png  binary
+*.ico  binary

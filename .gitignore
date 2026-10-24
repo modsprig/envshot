@@ -1,0 +1,24 @@
+# Local working notes; never commit
+.local/
+
+# Rust build artifacts
+/target
+
+# Coverage / profiling output
+*.profraw
+coverage/
+
+# Mutation testing output
+mutants.out*/
+
+# C# build artifacts
+csharp/**/bin/
+csharp/**/obj/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Editor artifacts
+.idea/
+.vscode/

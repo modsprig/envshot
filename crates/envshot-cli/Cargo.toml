@@ -1,0 +1,22 @@
+[package]
+name = "envshot-cli"
+version = "1.0.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+description = "Diagnostics CLI: capture, compare, and fingerprint execution-environment snapshots (publish disabled pending release)"
+
+[[bin]]
+name = "envshot"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4.6", features = ["derive"] }
+envshot = { path = "../envshot", version = "1.0.0" }
+envshot-core = { path = "../envshot-core", version = "1.0.0" }
+envshot-model = { path = "../envshot-model", version = "1.0.0" }
+serde_json = "1.0.151"
+
+[lints]
+workspace = true
